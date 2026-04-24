@@ -1,6 +1,5 @@
-# Option A (Recommended): Test Cisco SD‑WAN (vManage) API in VS Code with the **REST Client** Extension
+Test Cisco SD‑WAN (vManage) API in VS Code with the **REST Client** Extension
 
-This guide shows how to test the **same SD‑WAN API flow you shared** (session-based auth using **JSESSIONID**) directly inside **Visual Studio Code** using the **REST Client** extension and a `.http` request file.
 
 ---
 
