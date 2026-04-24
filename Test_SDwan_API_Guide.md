@@ -50,30 +50,31 @@ Paste the following code into `sdwan_api_test.py`:
 import requests
 import urllib3
 
-# Ignore SSL warnings (DevNet sandbox uses self-signed certificates)
-urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+# Disable SSL warnings (sandbox uses self-signed certs)
+urllib3.disable_warnings()
 
 HOST = "https://sandbox-sdwan-2.cisco.com"
 USERNAME = "devnetuser"
 PASSWORD = "RG!_Yw919_83"
 
-def main():
-    session = requests.Session()
+# Create session (stores cookies like JSESSIONID)
+session = requests.Session()
 
-    # Login to vManage (creates JSESSIONID session cookie)
-    login_url = f"{HOST}/j_security_check"
-    payload = {"j_username": USERNAME, "j_password": PASSWORD}
+# Login request
+login_url = f"{HOST}/j_security_check"
+payload = {
+    "j_username": USERNAME,
+    "j_password": PASSWORD
+}
 
-    response = session.post(login_url, data=payload, verify=False)
+response = session.post(login_url, data=payload, verify=False)
 
-    if response.status_code != 200 or "JSESSIONID" not in session.cookies:
-        raise SystemExit("Login failed: JSESSIONID not received")
+# Simple API test result
+if "JSESSIONID" in session.cookies:
+    print("✅ API login successful")
+else:
+    print("❌ API login failed")
 
-    print("Logged in successfully")
-    print("JSESSIONID:", session.cookies.get("JSESSIONID"))
-
-if __name__ == "__main__":
-    main()
 ```
 
 ---
